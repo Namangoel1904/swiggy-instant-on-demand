@@ -28,11 +28,18 @@ export default {
 					DEFAULT: 'hsl(var(--primary))',
 					foreground: 'hsl(var(--primary-foreground))',
 					light: 'hsl(var(--primary-light))',
-					dark: 'hsl(var(--primary-dark))'
+					dark: 'hsl(var(--primary-dark))',
+					subtle: 'hsl(var(--primary-subtle))'
 				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
-					foreground: 'hsl(var(--secondary-foreground))'
+					foreground: 'hsl(var(--secondary-foreground))',
+					light: 'hsl(var(--secondary-light))'
+				},
+				success: {
+					DEFAULT: 'hsl(var(--success))',
+					foreground: 'hsl(var(--success-foreground))',
+					light: 'hsl(var(--success-light))'
 				},
 				destructive: {
 					DEFAULT: 'hsl(var(--destructive))',
@@ -83,7 +90,9 @@ export default {
 				'gradient-card': 'var(--gradient-card)',
 				'gradient-service': 'var(--gradient-service)',
 				'gradient-offer': 'var(--gradient-offer)',
-				'gradient-premium': 'var(--gradient-premium)'
+				'gradient-premium': 'var(--gradient-premium)',
+				'gradient-success': 'var(--gradient-success)',
+				'gradient-checkout': 'var(--gradient-checkout)'
 			},
 			boxShadow: {
 				'card': 'var(--shadow-card)',

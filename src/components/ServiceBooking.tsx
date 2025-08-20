@@ -7,6 +7,7 @@ import { ArrowLeft, Clock, MapPin, Star, User, Shield, Award, Heart } from "luci
 import { ImageSlideshow } from "./ImageSlideshow";
 import { ServiceHighlights } from "./ServiceHighlights";
 import { SimilarServices } from "./SimilarServices";
+import { ServiceProviderInfo } from "./ServiceProviderInfo";
 
 interface ServiceBookingProps {
   service: {
@@ -267,6 +268,10 @@ export const ServiceBooking = ({ service, onBack, onBookConfirm }: ServiceBookin
                 Book Now - {service.price}
               </Button>
             </Card>
+
+            {selectedProvider && (
+              <ServiceProviderInfo provider={selectedProvider} />
+            )}
 
             <Card className="p-6 bg-white shadow-card border border-border/50">
               <SimilarServices 

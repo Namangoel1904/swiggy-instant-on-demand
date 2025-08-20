@@ -2,15 +2,17 @@ import { useState } from "react";
 import { HeroSection } from "@/components/HeroSection";
 import { ServiceCategories } from "@/components/ServiceCategories";
 import { ServiceBooking } from "@/components/ServiceBooking";
+import { ServiceCheckout } from "@/components/ServiceCheckout";
 import { OrderTracking } from "@/components/OrderTracking";
 import { useToast } from "@/hooks/use-toast";
 
-type ViewType = "home" | "categories" | "booking" | "tracking";
+type ViewType = "home" | "categories" | "booking" | "checkout" | "tracking";
 
 const Index = () => {
   const [currentView, setCurrentView] = useState<ViewType>("home");
   const [selectedService, setSelectedService] = useState<any>(null);
-  const [booking, setBooking] = useState<any>(null);
+  const [bookingDetails, setBookingDetails] = useState<any>(null);
+  const [finalBooking, setFinalBooking] = useState<any>(null);
   const { toast } = useToast();
 
   const handleGetStarted = () => {
@@ -23,18 +25,25 @@ const Index = () => {
   };
 
   const handleBookingConfirm = (bookingDetails: any) => {
-    setBooking(bookingDetails);
+    setBookingDetails(bookingDetails);
+    setCurrentView("checkout");
+  };
+
+  const handlePaymentComplete = (paymentDetails: any) => {
+    setFinalBooking(paymentDetails);
     setCurrentView("tracking");
     
     toast({
-      title: "Service Booked Successfully! 🎉",
-      description: `${bookingDetails.provider.name} will arrive in ${bookingDetails.timeSlot.includes("Now") ? "30-45 minutes" : bookingDetails.timeSlot}`,
+      title: "Payment Successful! 🎉",
+      description: `${paymentDetails.provider.name} will arrive in ${paymentDetails.timeSlot.includes("Now") ? "30-45 minutes" : paymentDetails.timeSlot}`,
     });
   };
 
   const handleBack = () => {
     if (currentView === "booking") {
       setCurrentView("categories");
+    } else if (currentView === "checkout") {
+      setCurrentView("booking");
     } else if (currentView === "categories") {
       setCurrentView("home");
     } else if (currentView === "tracking") {
@@ -65,9 +74,17 @@ const Index = () => {
         />
       )}
 
-      {currentView === "tracking" && booking && (
+      {currentView === "checkout" && bookingDetails && (
+        <ServiceCheckout
+          bookingDetails={bookingDetails}
+          onBack={handleBack}
+          onPaymentComplete={handlePaymentComplete}
+        />
+      )}
+
+      {currentView === "tracking" && finalBooking && (
         <OrderTracking
-          booking={booking}
+          booking={finalBooking}
           onBack={handleBack}
         />
       )}
